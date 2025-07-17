@@ -1,0 +1,340 @@
+/* Site planejado para uma tela de 1920x1080px
+sem a presença de elementos de integração 
+para outros tamanhos de tela */
+
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eeeeee;
+    overflow-y: auto;
+}
+
+
+header{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: auto auto;
+}
+
+.divInput{
+    display: flex;
+    word-break: break-all;
+    height: 120px;
+    font-size: 2rem;
+    width: 80%;
+    justify-content: center;
+}
+
+.divInput input{
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    padding-left: 10%;
+    border-left: 50px;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+button.add{
+    width: 20%;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    border: none;
+    height: 120px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto auto;
+    margin-top: 20px;
+    gap: 44px;
+}
+
+
+.item.clicado{
+    background-color: #d4f6d9;
+}
+
+.item.clicado .item-nome{
+    text-decoration: line-through;
+    color: gray;
+}
+.item{
+    display: flex;
+    align-items: center;
+    background: white;
+    height: 80px;
+    box-shadow: 0 0 20px black;
+    cursor: pointer;
+    width: 100%;
+    word-break: break-all;
+    border-radius: 15px;
+}
+
+.item-icone{  
+    flex: 10%; 
+    text-align: center;
+}
+
+.imagem-circle{
+    width: 20%;
+}
+
+.imagem-check{
+    text-align: center;
+    width: 10%;
+}
+
+
+.item-nome{
+    flex: 55%;
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+
+.item-botao{
+    flex: 25%;
+}
+
+button.delete{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    height: 80px;
+    width: 100%;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.imagem-lixo{
+    flex-flow: row wrap;
+    text-align: justify;
+    margin: 5px;
+    justify-content: center;
+    width: 55px;
+}
+
+.itemDeletar{
+    margin: 10px;
+    flex-flow: row wrap;
+    justify-content: center;
+    text-align: justify;
+    align-items: center;
+    width: 80px;
+}
+
+.item.prioridade{
+    background-color: rgb(236, 140, 140);
+}
+
+button.buttonPrioridade{ 
+    border-color: black;
+    background-color: orange;   
+    width: 20px;
+    height: 20px;
+    margin-inline: 10px;
+}
+
+.elementoPrioridade{
+    width: 14%;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+#iconeCamera{
+    display: flex;
+    padding: 20px;
+    width: 120px;
+    background-color: white;
+}
+
+.itensContagem{
+    display: flex;
+    justify-content: end;
+    margin-right: 5%;
+    margin-top: 15px;
+}
+
+button.iconeAzul{
+    border: 0px;
+    background-color: rgb(110, 110, 241);   
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+button.iconeVerde{
+    border: 0px;
+    background-color: rgb(93, 234, 93);   
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+button.iconeLaranja{
+    border: 0px;
+    background-color: orange;   
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+.itensContagem__content{
+    flex-basis: content;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.quantidadePendente{
+    padding-inline: 10px;
+}
+
+.quantidadeConcluidos{
+    padding-inline: 10px;
+}
+
+.quantidadePrioridade{
+    padding-inline: 10px;
+}
+
+
+button.filtroPendente{
+    border-color: black;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    display: flex;
+}
+
+button.filtroConcluido{
+    border-color: black;
+    background-color: white;  
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    display: flex;
+}
+
+button.filtroPrioridade{
+    border-color: black;
+    background-color: white; 
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    display: flex;
+}
+
+input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    margin-inline: 8px;
+    display: flex;
+    cursor: pointer;
+}
+
+.divTitulo{
+    word-break: break-all;
+    height: 120px;
+    margin: auto auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divTitulo__texto{
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+
+.titulo{
+    height: 100%;
+    background-color: #eeeeee;
+    border: 0px;
+    width: 100%;
+    font-size: 2rem;
+    color: black;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    display: flex;
+}
+
+.titulo:focus{
+    outline: none;
+}
+
+#iconeCamera.adicionaBorda{
+    border: 2px solid black;
+}
+
+.lapis{
+    width: 50px;
+    height: auto;
+    display: flex;
+    margin: 25px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    cursor: pointer;
+    position: absolute;
+    right: 3%;
+}
+
+.lapis:hover{
+    width: 60px;
+    margin: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.divTitulo__estilo{
+    flex-basis: 80%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    border-right: 2px solid black;
+}
+
+.paleta{
+    width: 70px;
+    height: auto;
+    display: flex;
+    margin: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+.paleta:hover{
+    width: 80px;
+    margin: 25px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
