@@ -17,7 +17,7 @@ Este projeto consiste em uma lista de tarefas que permite o usuário à:
 
 Foco na área central da página, onde a maior parte do conteúdo e interatividade acontece.
 
-<img src="img/Produto/Foto-produto.png" alt="Captura de tela da área central da página">
+<img src="Img/Produto/Foto-produto.png" alt="Captura de tela da área central da página">
 
 ### 💻 Tecnologias utilizadas
 
