@@ -89,7 +89,7 @@ function marcarTarefa(id){
         quantidadeConcluido.innerHTML = contadorConcluido
         item.classList.add("clicado")
         var icone = document.getElementById("icone_"+id).src= "progresso-concluido.png"
-        item.parentNode.appendChild(item)
+        item.parentElement.appendChild(item)
     }else if (classe == "item prioridade"){
         --contadorPrioritario
         ++contadorConcluido
@@ -98,7 +98,7 @@ function marcarTarefa(id){
         item.classList.remove("prioridade")
         item.classList.add("clicado")
         var icone = document.getElementById("icone_"+id).src= "progresso-concluido.png"
-        item.parentNode.appendChild(item)
+        item.parentElement.appendChild(item)
     }else{
         ++contadorPendente
         --contadorConcluido
@@ -118,6 +118,7 @@ function itemPriridade(id){
         ++contadorPrioritario
         quantidadePendentes.innerHTML = contadorPendente
         quantidadePrioridade.innerHTML = contadorPrioritario
+        item.parentElement.insertBefore(item, item.parentElement.firstChild);
     } 
     else if (classe == "item clicado"){
         --contadorConcluido
@@ -126,7 +127,8 @@ function itemPriridade(id){
         quantidadePrioridade.innerHTML = contadorPrioritario
         item.classList.remove("clicado")
         item.classList.add("prioridade")
-        document.getElementById("icone_"+id).src= "circulo.png"    
+        document.getElementById("icone_"+id).src= "circulo.png" 
+        item.parentElement.insertBefore(item, item.parentElement.firstChild);
 
     }else{
         --contadorPrioritario
