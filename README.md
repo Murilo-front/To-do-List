@@ -1,36 +1,29 @@
 # To-do List
 
-Meu primeiro código feito utilizando do JavaScript. Uma simples lista de tarefas feitas para praticar conceitos de HTML5, CSS3 e JavaScript.
-
 ### 📝 Descrição
 
-Este projeto consiste em uma lista de tarefas que permite o usuário à:
-
-- adicionar novas tarefas
-- marcar como concluídas ou como prioridade
-- remover a tarefa
-- Alterar o titulo
+Projeto desenvolvido e aprimorado para praticar conceitos avançados de manipulação de DOM e armezenamento local. Uma lista de tarefas com funcionalidades de personalização.
 
 ### 👀 Demonstração
 
-#### Seção Principal/Conteúdo
+#### Visão geral
 
-Foco na área central da página, onde a maior parte do conteúdo e interatividade acontece.
+Visão geral do projeto, apresentando interface e icones para personalização.
 
 <img src="Img/Produto/Foto-produto.png" alt="Captura de tela da área central da página">
 
 ### 💻 Tecnologias utilizadas
 
-- Html5
+- HTML5
 - CSS3
 - JavaScript
 
 ### 🎯 Objetivos de aprendizado
 
 - Praticar logica de programação com Javascript.
-- Uso de `loops`.
-- Manipular DOM.
-- Conceitos de contadores.
+- Uso de motodos de array: `forEach` e `map`.
+- Manipulação avançada do DOM.
+- Pratica ao uso de `localStorege`
 
 ### 📲 Instalação
 
