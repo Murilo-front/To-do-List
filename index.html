@@ -1,49 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Murilo Scovini" >
-    <link rel="stylesheet" href="CSS/estilo.css">   
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Murilo Scovini" />
+    <link rel="stylesheet" href="CSS/estilo.css" />
     <title>Lista de tarefas</title>
-</head>
-<body>
-<div class="divTitulo">
-    <div class="divTitulo__estilo">
-        <input onblur="pegarValor()" type="text" value="Lista de tarefas" id="Idtitulo" class="titulo">
-        <label for="titulo"><img onclick="limparTitulo()" src="Img/pencil.png" class="lapis"></label>
+  </head>
+  <body>
+    <div class="divTitulo">
+      <div class="divTitulo__estilo">
+        <input
+          onblur="valorDefault()"
+          type="text"
+          id="Idtitulo"
+          class="titulo"
+          autocomplete="off"
+        />
+        <label for="Idtitulo"
+          ><img
+            onclick="limparTitulo()"
+            src="Img/pencil.png"
+            class="lapis"
+            alt="lapis-icon"
+        /></label>
+      </div>
+      <div class="paleta">
+        <label for="mudaCor"
+          ><img src="Img/color-palette.png" alt="paleta-icon"
+        /></label>
+
+        <input type="color" name="color" id="mudaCor" value="#eeeeee" />
+      </div>
+      <div class="reload">
+        <img src="Img/reload.png" alt="reload-icon" />
+      </div>
     </div>
-        <img src="Img/color-palette.png" class="paleta">
-</div>
     <header>
-        <div class="divInput">
-        <input id="inputTarefa"; type="text"; placeholder="Digite sua tarefa">
-        <img onmouseover="adicionaBorda()" onmouseout="retiraBorda()" onclick="iconeCamera()" src="Img/camera.png" id="iconeCamera"> 
-        </div>
-        <button id="btn-add" class="add" onclick="addTarefa()"> Adicionar </button>
+      <div class="divInput">
+        <input
+          id="inputTarefa"
+          ;
+          type="text"
+          ;
+          placeholder="Digite sua tarefa"
+          autofocus
+        />
+        <img
+          onmouseover="adicionaBorda()"
+          onmouseout="retiraBorda()"
+          onclick="iconeCamera()"
+          src="Img/camera.png"
+          id="iconeCamera"
+        />
+      </div>
+      <button id="btn-add" class="add" onclick="addTarefa()">Adicionar</button>
     </header>
     <div class="itensContagem">
-        <div class="itensContagem__content">
-            <input type="checkbox" name="pendente" id="checkPendentes">
-            <label for="checkPendentes"><p>Terefas pendentes</p></label>
-            <p id="valoresPendente" class="quantidadePendente">0</p>        
-            <button class="iconeAzul"></button>
-        </div>
-        <div class="itensContagem__content">
-            <input type="checkbox" name="concluido" id="checkConcluidos">
-            <label for="checkConcluidos"><p>Terefas concluidos</p></label>
-            <p id="valoresConcluido" class="quantidadeConcluidos">0</p>        
-            <button class="iconeVerde"></button>
-        </div>
-        <div class="itensContagem__content"> 
-            <input type="checkbox" name="prioridade" id="checkPrioridades">
-            <label for="checkPrioridades"><p>Terefas prioridade</p></label>
-            <p id="valoresPrioridade" class="quantidadePrioridade">0</p>        
-            <button class="iconeLaranja"></button>
-        </div>
+      <div class="itensContagem__content">
+        <input type="checkbox" name="pendente" id="checkPendentes" />
+        <label for="checkPendentes"><p>Terefas pendentes</p></label>
+        <p id="valoresPendente" class="quantidadePendente">0</p>
+        <button class="iconeAzul"></button>
+      </div>
+      <div class="itensContagem__content">
+        <input type="checkbox" name="concluido" id="checkConcluidos" />
+        <label for="checkConcluidos"><p>Terefas concluidos</p></label>
+        <p id="valoresConcluido" class="quantidadeConcluidos">0</p>
+        <button class="iconeVerde"></button>
+      </div>
+      <div class="itensContagem__content">
+        <input type="checkbox" name="prioridade" id="checkPrioridades" />
+        <label for="checkPrioridades"><p>Terefas prioridade</p></label>
+        <p id="valoresPrioridade" class="quantidadePrioridade">0</p>
+        <button class="iconeLaranja"></button>
+      </div>
     </div>
-    <main id="areaLista" >
-    </main>
-    <script src="Js/controle.js" defer></script>
-</body>
+    <main id="areaLista"></main>
+    <script src="js/icons.js"></script>
+    <script src="js/localStorege.js"></script>
+    <script src="js/controle.js"></script>
+    <script src="js/filtro.js"></script>
+  </body>
 </html>
