@@ -1,25 +1,35 @@
-let contador = 0
-let contadorPendente = 0
-let contadorPrioritario = 0
-let contadorConcluido = 0
-let pegarinput = document.getElementById("inputTarefa")
-let btnAdd = document.getElementById("btn-add")
-let main= document.getElementById("areaLista")
-let valorinput
-let quantidadePendentes = document.getElementById("valoresPendente")
-let quantidadeConcluido = document.getElementById("valoresConcluido")
-let quantidadePrioridade = document.getElementById("valoresPrioridade")
+// Função de clique que adiciona tarefa caso valor do input não seja nulo
 function addTarefa() {
+  // Se houver algum dado salvo define o contador para valor maximo ou 0
+  if (getSavedData().length != 0) {
+    // Cria um array com todas as informações de tarefa, contador, recuperando o valor maximo
+    let ultimaTarefa = Math.max(
+      ...tasks.map((task) => {
+        return task.tarefa;
+      })
+    );
+    contador = ultimaTarefa;
 
-    valorinput = pegarinput.value
+    // Caso não haja informações no array tasks, retorna -Infinity, define o contador como 0
+    if (ultimaTarefa == "-Infinity") {
+      contador = 0;
+    }
+  }
 
-    if((valorinput != "") && (valorinput != null) && (valorinput != undefined)){
-    
-        ++contador
-        ++contadorPendente
-        quantidadePendentes.innerHTML = contadorPendente
+  // Pega valor do input e caso não sejá nulo acrescenta no main
+  valorinput = pegarinput.value;
+  if (
+    valorinput.trim() != "" &&
+    valorinput != null &&
+    valorinput != undefined
+  ) {
+    // Atualiza valor do contador de tarefas pendentes
+    ++contador;
+    ++contadorPendente;
+    quantidadePendentes.innerHTML = contadorPendente;
 
-        novoItem = `<div id="${contador}" class="item">
+    // Cria e diciona novo item no main
+    let novoItem = `<div id="${contador}" class="item">
             <div onclick="marcarTarefa(${contador})" class="item-icone">
                 <img id="icone_${contador}" src="Img/circulo.png" class="imagem-circle">
             </div>
@@ -35,165 +45,158 @@ function addTarefa() {
                     <img id="icone-lixo_${contador}" src="Img/circule-o-lixo.png" class="imagem-lixo">
                     <p class="itemDeletar">Deletar</p>
             </div>
-        </div>`
-        //adicionar novo item no main
-        main.innerHTML += novoItem
-    
-        //zerar o campo do input
-        pegarinput.value = ""
-        pegarinput.focus() 
-    } 
+        </div>`;
+
+    main.innerHTML += novoItem;
+
+    // Cria tarefa em formato de objeto e adiona ao array de tarefas
+    let novaTask = {
+      tarefa: contador,
+      situacao: "item",
+      conteudo: valorinput,
+      data: Date.now(),
+    };
+    tasks.push(novaTask);
+    setNewData();
+
+    // Caso tenha algum filtro aplicado adiciona o item escondido
+    let itens = document.querySelectorAll(".item");
+    itens.forEach((item) => {
+      let classItem = item.getAttribute("class");
+      if (checkConcluidos.checked || checkPrioridades.checked) {
+        if (classItem == "item") {
+          item.style.display = "none";
+        }
+      }
+    });
+
+    // Zerar o campo do input e adionar foco no input
+    pegarinput.value = "";
+    pegarinput.focus();
+  }
 }
 
-function deletar(id){
-    let tarefaADD = document.getElementById(id)
-    let classe = tarefaADD.getAttribute("class")
-    switch(classe){
-        case "item":
-        tarefaADD.remove()
-        --contador
-        --contadorPendente
-        quantidadePendentes.innerHTML = contadorPendente
-        break
-        case "item clicado":
-        tarefaADD.remove()
-        --contador
-        --contadorConcluido
-        quantidadeConcluido.innerHTML = contadorConcluido
-        break
-        case "item prioridade":
-        tarefaADD.remove()
-        --contador
-        --contadorPrioritario
-        quantidadePrioridade.innerHTML = contadorPrioritario
-        break
-        default: preventDefault
-    }
+// Função de deletar um item em especifico
+function deletar(id) {
+  let tarefaADD = document.getElementById(id);
+  let classe = tarefaADD.getAttribute("class");
+
+  // Procura o index no array pelo valor do contador, id, e remove utilizando o metodo splice
+  atualizaSituacao(id, "deletar");
+
+  // cria condicional dependendo da classe atualiza o contador
+  switch (classe) {
+    case "item":
+      tarefaADD.remove();
+      --contadorPendente;
+      quantidadePendentes.innerHTML = contadorPendente;
+      break;
+    case "item clicado":
+      tarefaADD.remove();
+      --contadorConcluido;
+      quantidadeConcluido.innerHTML = contadorConcluido;
+      break;
+    case "item prioridade":
+      tarefaADD.remove();
+      --contadorPrioritario;
+      quantidadePrioridade.innerHTML = contadorPrioritario;
+      break;
+    default:
+      preventDefault;
+  }
 }
 
-pegarinput.addEventListener("keyup", function(event){
-    if(event.keyCode === 13){
-        event.preventDefault()
-        btnAdd.click()
-    }
-} )
+// Adiciona funcionalidade de clique no botão de adicionar pelo enter
+pegarinput.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    btnAdd.click();
+  }
+});
 
+// Função de marcar tarefa como concluida
+function marcarTarefa(id) {
+  let item = document.getElementById(id);
+  let classe = item.getAttribute("class");
 
-function marcarTarefa(id){
-    let item = document.getElementById(id)
-    let classe = item.getAttribute("class")
-    if (classe == "item" ){
-        -- contadorPendente
-        ++contadorConcluido
-        quantidadePendentes.innerHTML = contadorPendente
-        quantidadeConcluido.innerHTML = contadorConcluido
-        item.classList.add("clicado")
-        var icone = document.getElementById("icone_"+id).src= "progresso-concluido.png"
-        item.parentElement.appendChild(item)
-    }else if (classe == "item prioridade"){
-        --contadorPrioritario
-        ++contadorConcluido
-        quantidadeConcluido.innerHTML = contadorConcluido
-        quantidadePrioridade.innerHTML = contadorPrioritario
-        item.classList.remove("prioridade")
-        item.classList.add("clicado")
-        var icone = document.getElementById("icone_"+id).src= "progresso-concluido.png"
-        item.parentElement.appendChild(item)
-    }else{
-        ++contadorPendente
-        --contadorConcluido
-        quantidadeConcluido.innerHTML = contadorConcluido
-        quantidadePendentes.innerHTML = contadorPendente
-         item.classList.remove("clicado")
-        var icone = document.getElementById("icone_"+id).src= "circulo.png"     
-    }
+  // Caso algum dos filtros esteja seleciona esconde o item
+  if (checkPendente.checked || checkPrioridades.checked) {
+    item.style.display = "none";
+  }
+
+  // Altera situação do item no array de tasks
+  atualizaSituacao(id, "clicado");
+
+  // Adiciona a classe e a formatação para o item clicado e atualiza os contadores
+  if (classe == "item") {
+    --contadorPendente;
+    ++contadorConcluido;
+    quantidadePendentes.innerHTML = contadorPendente;
+    quantidadeConcluido.innerHTML = contadorConcluido;
+    item.classList.add("clicado");
+    var icone = (document.getElementById("icone_" + id).src =
+      "progresso-concluido.png");
+    item.parentElement.appendChild(item);
+  } else if (classe == "item prioridade") {
+    --contadorPrioritario;
+    ++contadorConcluido;
+    quantidadeConcluido.innerHTML = contadorConcluido;
+    quantidadePrioridade.innerHTML = contadorPrioritario;
+    item.classList.remove("prioridade");
+    item.classList.add("clicado");
+    var icone = (document.getElementById("icone_" + id).src =
+      "progresso-concluido.png");
+    item.parentElement.appendChild(item);
+  } else {
+    ++contadorPendente;
+    --contadorConcluido;
+    quantidadeConcluido.innerHTML = contadorConcluido;
+    quantidadePendentes.innerHTML = contadorPendente;
+    item.classList.remove("clicado");
+    var icone = (document.getElementById("icone_" + id).src = "circulo.png");
+
+    atualizaSituacao(id, "pendente");
+  }
 }
 
-function itemPriridade(id){
-    let item = document.getElementById(id)
-    let classe = item.getAttribute("class")
-    if (classe == "item"){
-        item.classList.add("prioridade")
-        --contadorPendente
-        ++contadorPrioritario
-        quantidadePendentes.innerHTML = contadorPendente
-        quantidadePrioridade.innerHTML = contadorPrioritario
-        item.parentElement.insertBefore(item, item.parentElement.firstChild);
-    } 
-    else if (classe == "item clicado"){
-        --contadorConcluido
-        ++ contadorPrioritario
-        quantidadeConcluido.innerHTML = contadorConcluido
-        quantidadePrioridade.innerHTML = contadorPrioritario
-        item.classList.remove("clicado")
-        item.classList.add("prioridade")
-        document.getElementById("icone_"+id).src= "circulo.png" 
-        item.parentElement.insertBefore(item, item.parentElement.firstChild);
+// Função de marcar tarefa como prioridade
+function itemPriridade(id) {
+  let item = document.getElementById(id);
+  let classe = item.getAttribute("class");
 
-    }else{
-        --contadorPrioritario
-        ++contadorPendente
-        quantidadePendentes.innerHTML = contadorPendente
-        quantidadePrioridade.innerHTML = contadorPrioritario
-        item.classList.remove("prioridade")
-    }
-}
+  // Caso um dos contadores esteja marcado esconde o item
+  if (checkPendente.checked || checkConcluidos.checked) {
+    item.style.display = "none";
+  }
 
-function iconeCamera(){
-    console.log ("Ativou a camera")
-}
+  // Altera situação do item no array de tasks
+  atualizaSituacao(id, "prioridade");
 
+  // Adciona classe prioridade e atualiza contadores
+  if (classe == "item") {
+    item.classList.add("prioridade");
+    --contadorPendente;
+    ++contadorPrioritario;
+    quantidadePendentes.innerHTML = contadorPendente;
+    quantidadePrioridade.innerHTML = contadorPrioritario;
+    item.parentElement.insertBefore(item, item.parentElement.firstChild);
+  } else if (classe == "item clicado") {
+    --contadorConcluido;
+    ++contadorPrioritario;
+    quantidadeConcluido.innerHTML = contadorConcluido;
+    quantidadePrioridade.innerHTML = contadorPrioritario;
+    item.classList.remove("clicado");
+    item.classList.add("prioridade");
+    document.getElementById("icone_" + id).src = "circulo.png";
+    item.parentElement.insertBefore(item, item.parentElement.firstChild);
+  } else {
+    --contadorPrioritario;
+    ++contadorPendente;
+    quantidadePendentes.innerHTML = contadorPendente;
+    quantidadePrioridade.innerHTML = contadorPrioritario;
+    item.classList.remove("prioridade");
 
-let classe = document.querySelectorAll("item").length
-let checkPendente = document.getElementById("checkPendentes")
-let checkConcluidos = document.getElementById("checkConcluidos")
-let checkPrioridades = document.getElementById("checkPrioridades")
-checkPendente.addEventListener("click", function(){
-    if(checkPendente.checked){
-        console.log(classe)
-        
-        if(classe>0){
-            console.log("certo")
-            classe.add("filtroPendente")
-        }else{}
-        checkPendente.preventDefault
-    }else{}
-})    
-
-checkConcluidos.addEventListener("click", function(){
-    if(checkConcluidos.checked){
-        checkConcluidos.preventDefault
-    }
-})
-
-checkPrioridades.addEventListener("click", function(){
-    if(checkPrioridades.checked){
-        checkPrioridades.preventDefault
-    }
-})
-
-function adicionaBorda(){
-    let iconeCamera = document.getElementById("iconeCamera")
-    let classe = iconeCamera.getAttribute("class")
-    iconeCamera.classList.add("adicionaBorda")
-}
-
-function retiraBorda(){
-    let iconeCamera = document.getElementById("iconeCamera")
-    let classe = iconeCamera.getAttribute("class")
-    iconeCamera.classList.remove("adicionaBorda")
-}
-
-function limparTitulo(){
-    let valorTitulo = document.getElementById("Idtitulo")
-    valorTitulo.value =""
-    valorTitulo.focus()
-}
-
-function pegarValor(){
-    let valorTitulo = document.getElementById("Idtitulo")
-    let pegarValor = valorTitulo.value
-    if (pegarValor === ""){
-        valorTitulo.value= "Lista de tarefas"
-    }
+    // Atualiza array de tasks caso seja desmarcado
+    atualizaSituacao(id, "pendente");
+  }
 }
