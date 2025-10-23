@@ -65,3 +65,4 @@ reload.addEventListener("click", () => {
   titulo.style.backgroundColor = "#eeee";
   valorTitulo.value = "Lista de tarefas";
 });
+
