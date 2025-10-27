@@ -28,6 +28,21 @@ function addTarefa() {
     ++contadorPendente;
     quantidadePendentes.innerHTML = contadorPendente;
 
+    // Cria class para o objeto Task
+    class NewTask {
+    constructor(contador, valorinput) {
+      this.tarefa = contador;
+      this.situacao = "item";
+      this.conteudo = valorinput;
+      this.data = Date.now();
+    }
+  }
+
+    // Cria função que retorna a própria classe com os parâmetros aplicados
+  function criaTask(contador, valorinput) {
+    return new NewTask(contador, valorinput);
+  }
+
     // Cria e diciona novo item no main
     let novoItem = `<div id="${contador}" class="item">
             <div onclick="marcarTarefa(${contador})" class="item-icone">
@@ -50,12 +65,7 @@ function addTarefa() {
     main.innerHTML += novoItem;
 
     // Cria tarefa em formato de objeto e adiona ao array de tarefas
-    let novaTask = {
-      tarefa: contador,
-      situacao: "item",
-      conteudo: valorinput,
-      data: Date.now(),
-    };
+    let novaTask = criaTask(contador, valorinput);
     tasks.push(novaTask);
     setNewData();
 
