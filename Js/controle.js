@@ -1,3 +1,18 @@
+ // Cria class para o objeto Task
+    class NewTask {
+    constructor(contador, valorinput) {
+      this.tarefa = contador;
+      this.situacao = "item";
+      this.conteudo = valorinput;
+      this.data = Date.now();
+    }
+  }
+
+    // Cria função que retorna a própria classe com os parâmetros aplicados
+  function criaTask(contador, valorinput) {
+    return new NewTask(contador, valorinput);
+  }
+
 // Função de clique que adiciona tarefa caso valor do input não seja nulo
 function addTarefa() {
   // Se houver algum dado salvo define o contador para valor maximo ou 0
@@ -27,21 +42,6 @@ function addTarefa() {
     ++contador;
     ++contadorPendente;
     quantidadePendentes.innerHTML = contadorPendente;
-
-    // Cria class para o objeto Task
-    class NewTask {
-    constructor(contador, valorinput) {
-      this.tarefa = contador;
-      this.situacao = "item";
-      this.conteudo = valorinput;
-      this.data = Date.now();
-    }
-  }
-
-    // Cria função que retorna a própria classe com os parâmetros aplicados
-  function criaTask(contador, valorinput) {
-    return new NewTask(contador, valorinput);
-  }
 
     // Cria e diciona novo item no main
     let novoItem = `<div id="${contador}" class="item">
